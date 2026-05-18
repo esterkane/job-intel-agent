@@ -1,0 +1,35 @@
+[project]
+name = "job-intel-agent-backend"
+version = "0.1.0"
+description = "Local-first job intelligence backend"
+requires-python = ">=3.12"
+dependencies = [
+  "apscheduler>=3.10.4",
+  "beautifulsoup4>=4.12.3",
+  "fastapi>=0.115.0",
+  "httpx>=0.27.0",
+  "psycopg[binary]>=3.2.1",
+  "pydantic-settings>=2.4.0",
+  "python-dateutil>=2.9.0",
+  "pyyaml>=6.0.2",
+  "sqlalchemy>=2.0.32",
+  "uvicorn[standard]>=0.30.6",
+]
+
+[project.optional-dependencies]
+scraping = ["playwright>=1.46.0"]
+semantic = ["qdrant-client>=1.11.1", "sentence-transformers>=3.0.1"]
+jobspy = ["python-jobspy>=1.1.76"]
+test = ["pytest>=8.3.2", "pytest-asyncio>=0.24.0"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+
+[build-system]
+requires = ["setuptools>=72", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["app*"]

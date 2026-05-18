@@ -1,0 +1,114 @@
+name: Sanja
+headline: Elastic Support Engineer in Germany moving toward strategic AI, search, automation, and knowledge systems roles.
+target_regions:
+  - Remote Germany
+  - Remote Europe
+  - Remote EMEA
+  - EMEA remote
+  - Europe remote
+  - Germany remote
+  - Remote worldwide
+  - Work from anywhere
+  - Global remote
+  - CET
+  - CEST
+  - UTC+0
+  - UTC+1
+  - UTC+2
+  - UTC+3
+target_profile_text: >
+  Elastic Support Engineer with strong Elasticsearch, Elastic Stack, Observability/APM,
+  support diagnostics, customer troubleshooting, technical advisory, KCS, knowledge base,
+  RAG/search, AI learning, and internal tooling experience. Targeting strategic remote-first
+  roles that can be done from anywhere, Germany, Europe, EMEA, or CET/CEST-friendly time
+  zones within roughly plus or minus two hours of Germany. Also targeting work around AI
+  agents, RAG, search, customer automation, support workflow modernization, technical
+  advisory, knowledge systems, enablement, developer education, and AI-enabled support operations.
+target_role_families:
+  - AI Solutions Engineer
+  - AI Automation Engineer
+  - RAG Engineer
+  - Search Solutions Engineer
+  - Search Relevance / Search Experience
+  - Technical Customer Success Manager
+  - Solutions Architect
+  - Technical Account Manager
+  - Forward Deployed Engineer
+  - Developer Advocate / Developer Education
+  - Technical Writer for Search / AI
+  - Support Operations / Support Automation
+  - Knowledge Systems Engineer
+  - KCS / Knowledge Manager
+  - Enablement Engineer
+  - Customer Education / Learning Engineer
+  - Observability Architect
+positive_keywords:
+  - AI agent
+  - agents
+  - RAG
+  - retrieval
+  - vector search
+  - semantic search
+  - hybrid search
+  - search relevance
+  - Elasticsearch
+  - observability
+  - OpenTelemetry
+  - workflow automation
+  - support automation
+  - customer automation
+  - knowledge base
+  - KCS
+  - enablement
+  - technical advisory
+  - solutions architect
+  - solutions engineer
+  - customer success engineer
+  - developer education
+  - technical writing
+  - docs
+  - support operations
+  - internal tooling
+  - AI enablement
+  - GenAI
+  - LLM
+  - embeddings
+  - vector database
+  - remote worldwide
+  - work from anywhere
+  - async remote
+  - EMEA remote
+  - CET
+  - CEST
+negative_keywords:
+  - frontline support
+  - 24/7 support
+  - shift work
+  - call center
+  - helpdesk
+  - desktop support
+  - hardware support
+  - principal software engineer
+  - senior backend engineer only
+  - pure sales
+  - SDR
+  - onsite only
+  - US only
+  - North America only
+  - Americas only
+  - PST hours only
+  - EST hours only
+  - Pacific time only
+  - security clearance
+  - unpaid internship
+scoring_weights:
+  role_title_score: 0.18
+  description_score: 0.16
+  remote_fit_score: 0.14
+  region_fit_score: 0.12
+  company_fit_score: 0.08
+  seniority_fit_score: 0.08
+  support_classic_penalty: 0.14
+  strategic_work_score: 0.12
+  ai_search_relevance_score: 0.08
+  knowledge_kcs_score: 0.04

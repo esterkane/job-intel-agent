@@ -1,0 +1,419 @@
+sources:
+  - company_name: Anthropic
+    career_url: https://www.anthropic.com/careers
+    source_type: company
+    adapter_type: greenhouse
+    remote_policy_notes: Remote-friendly with region-specific constraints.
+    culture_notes: AI safety and frontier model company.
+    priority: high
+    include_keywords: [solutions, customer, education, support, engineer, enablement]
+    exclude_keywords: [US only, onsite only, security clearance]
+    target_regions: [Europe, Germany, EMEA, Remote]
+    enabled: true
+  - company_name: n8n
+    career_url: https://n8n.io/careers
+    source_type: company
+    adapter_type: generic_playwright
+    remote_policy_notes: Remote-first automation company.
+    culture_notes: Workflow automation, developer tooling, AI automation.
+    priority: high
+    include_keywords: [automation, solutions, support, success, AI]
+    exclude_keywords: [onsite only]
+    target_regions: [Europe, Germany, Remote]
+    enabled: true
+  - company_name: Grafana Labs
+    career_url: https://grafana.com/about/careers/open-positions/
+    source_type: company
+    adapter_type: static_html
+    remote_policy_notes: Distributed company with remote roles.
+    culture_notes: Observability, open source, customer engineering.
+    priority: high
+    include_keywords: [observability, solutions, architect, customer, OpenTelemetry]
+    exclude_keywords: [US only, onsite only]
+    target_regions: [Europe, Germany, EMEA, Remote]
+    enabled: true
+  - company_name: LangChain
+    career_url: https://www.langchain.com/careers
+    source_type: company
+    adapter_type: ashby
+    remote_policy_notes: Remote-friendly but role dependent.
+    culture_notes: Agents, RAG, LLM application infrastructure.
+    priority: high
+    include_keywords: [RAG, agents, solutions, developer, education]
+    exclude_keywords: [onsite only]
+    target_regions: [Europe, Remote]
+    enabled: true
+  - company_name: Qdrant
+    career_url: https://qdrant.to/jobs
+    source_type: company
+    adapter_type: static_html
+    remote_policy_notes: Remote-friendly vector database company.
+    culture_notes: Vector search and semantic retrieval.
+    priority: high
+    include_keywords: [vector, search, solutions, developer, customer]
+    exclude_keywords: [onsite only]
+    target_regions: [Europe, Germany, Remote]
+    enabled: true
+  - company_name: Pinecone
+    career_url: https://www.pinecone.io/careers/
+    source_type: company
+    adapter_type: generic_playwright
+    remote_policy_notes: Remote policies vary by role.
+    culture_notes: Vector database and AI infrastructure.
+    priority: high
+    include_keywords: [vector, search, solutions, customer, AI]
+    exclude_keywords: [US only, onsite only]
+    target_regions: [Europe, Remote]
+    enabled: false
+  - company_name: PostHog
+    career_url: https://posthog.com/careers
+    source_type: company
+    adapter_type: static_html
+    remote_policy_notes: Remote-first.
+    culture_notes: Open source product analytics and developer tools.
+    priority: high
+    include_keywords: [support, customer, developer, education, solutions]
+    exclude_keywords: [onsite only]
+    target_regions: [Europe, Remote]
+    enabled: false
+  - company_name: Sourcegraph
+    career_url: https://sourcegraph.com/jobs
+    source_type: company
+    adapter_type: static_html
+    remote_policy_notes: Remote-friendly.
+    culture_notes: Code search, developer AI, enterprise search.
+    priority: high
+    include_keywords: [search, AI, customer, solutions, developer]
+    exclude_keywords: [US only]
+    target_regions: [Europe, Remote]
+    enabled: false
+  - company_name: GitLab
+    career_url: https://about.gitlab.com/jobs/
+    source_type: company
+    adapter_type: generic_playwright
+    remote_policy_notes: All-remote company.
+    culture_notes: DevOps, docs, enablement, customer success.
+    priority: high
+    include_keywords: [customer, solutions, education, enablement, support]
+    exclude_keywords: [shift work]
+    target_regions: [Europe, Germany, Remote]
+    enabled: false
+  - company_name: Automattic
+    career_url: https://automattic.com/work-with-us/
+    source_type: company
+    adapter_type: static_html
+    remote_policy_notes: Distributed company.
+    culture_notes: Remote work and customer engineering culture.
+    priority: medium
+    include_keywords: [support, success, education, engineering]
+    exclude_keywords: [24/7 support, shift work]
+    target_regions: [Europe, Remote]
+    enabled: false
+  - company_name: Zapier
+    career_url: https://zapier.com/jobs
+    source_type: company
+    adapter_type: generic_playwright
+    remote_policy_notes: Remote-first, region dependent.
+    culture_notes: Automation and AI workflows.
+    priority: high
+    include_keywords: [automation, AI, customer, solutions, support operations]
+    exclude_keywords: [US only]
+    target_regions: [Europe, Remote]
+    enabled: false
+  - company_name: Docker
+    career_url: https://www.docker.com/careers/
+    source_type: company
+    adapter_type: generic_playwright
+    remote_policy_notes: Remote-friendly by role.
+    culture_notes: Developer tooling and customer enablement.
+    priority: medium
+    include_keywords: [solutions, developer, customer, education]
+    exclude_keywords: [onsite only]
+    target_regions: [Europe, Germany, Remote]
+    enabled: false
+  - company_name: Doist
+    career_url: https://doist.com/careers
+    source_type: company
+    adapter_type: static_html
+    remote_policy_notes: Remote-first.
+    culture_notes: Async work and productivity.
+    priority: medium
+    include_keywords: [support, education, customer, automation]
+    exclude_keywords: [shift work]
+    target_regions: [Europe, Remote]
+    enabled: false
+  - company_name: Buffer
+    career_url: https://buffer.com/journey
+    source_type: company
+    adapter_type: static_html
+    remote_policy_notes: Remote-first.
+    culture_notes: Transparent distributed company.
+    priority: low
+    include_keywords: [customer, support, education]
+    exclude_keywords: [shift work]
+    target_regions: [Europe, Remote]
+    enabled: false
+  - company_name: Deel
+    career_url: https://www.deel.com/careers
+    source_type: company
+    adapter_type: generic_playwright
+    remote_policy_notes: Remote and global hiring.
+    culture_notes: Global employment platform.
+    priority: medium
+    include_keywords: [automation, customer, support operations, enablement]
+    exclude_keywords: [pure sales, SDR]
+    target_regions: [Europe, Remote]
+    enabled: false
+  - company_name: Chainguard
+    career_url: https://www.chainguard.dev/careers
+    source_type: company
+    adapter_type: static_html
+    remote_policy_notes: Remote-friendly.
+    culture_notes: Security and developer infrastructure.
+    priority: medium
+    include_keywords: [solutions, customer, education, engineer]
+    exclude_keywords: [security clearance, US only]
+    target_regions: [Europe, Remote]
+    enabled: false
+  - company_name: Elastic
+    career_url: https://www.elastic.co/careers/
+    source_type: company
+    adapter_type: generic_playwright
+    remote_policy_notes: Distributed company with regional roles.
+    culture_notes: Search, observability, security, customer engineering.
+    priority: high
+    include_keywords: [Elasticsearch, observability, solutions, architect, education]
+    exclude_keywords: [frontline support, shift work]
+    target_regions: [Germany, Europe, Remote]
+    enabled: false
+  - company_name: Supabase
+    career_url: https://supabase.com/careers
+    source_type: company
+    adapter_type: static_html
+    remote_policy_notes: Remote-friendly.
+    culture_notes: Open source developer platform.
+    priority: medium
+    include_keywords: [developer, education, support, customer, docs]
+    exclude_keywords: [onsite only]
+    target_regions: [Europe, Remote]
+    enabled: false
+  - company_name: dbt Labs
+    career_url: https://www.getdbt.com/careers
+    source_type: company
+    adapter_type: generic_playwright
+    remote_policy_notes: Remote-friendly by region.
+    culture_notes: Analytics engineering, enablement, customer advisory.
+    priority: medium
+    include_keywords: [solutions, education, enablement, customer]
+    exclude_keywords: [US only]
+    target_regions: [Europe, Remote]
+    enabled: false
+  - company_name: Tailscale
+    career_url: https://tailscale.com/careers
+    source_type: company
+    adapter_type: static_html
+    remote_policy_notes: Remote-friendly.
+    culture_notes: Infrastructure, docs, customer engineering.
+    priority: medium
+    include_keywords: [customer, solutions, docs, developer]
+    exclude_keywords: [onsite only]
+    target_regions: [Europe, Remote]
+    enabled: false
+  - company_name: Deepgram
+    career_url: https://deepgram.com/careers
+    source_type: company
+    adapter_type: generic_playwright
+    remote_policy_notes: Remote policies vary.
+    culture_notes: Voice AI developer platform.
+    priority: medium
+    include_keywords: [AI, solutions, customer, developer]
+    exclude_keywords: [US only]
+    target_regions: [Europe, Remote]
+    enabled: false
+  - company_name: AssemblyAI
+    career_url: https://www.assemblyai.com/careers
+    source_type: company
+    adapter_type: static_html
+    remote_policy_notes: Remote-friendly by role.
+    culture_notes: Speech AI APIs and developer education.
+    priority: medium
+    include_keywords: [AI, developer, education, solutions]
+    exclude_keywords: [US only]
+    target_regions: [Europe, Remote]
+    enabled: false
+  - company_name: Dropbox
+    career_url: https://jobs.dropbox.com/
+    source_type: company
+    adapter_type: generic_playwright
+    remote_policy_notes: Virtual-first with regional constraints.
+    culture_notes: Productivity, knowledge, collaboration.
+    priority: medium
+    include_keywords: [customer, education, knowledge, AI]
+    exclude_keywords: [US only]
+    target_regions: [Europe, Remote]
+    enabled: false
+  - company_name: Atlassian
+    career_url: https://www.atlassian.com/company/careers
+    source_type: company
+    adapter_type: generic_playwright
+    remote_policy_notes: Team Anywhere policy, role dependent.
+    culture_notes: Collaboration, enterprise support, knowledge.
+    priority: medium
+    include_keywords: [solutions, customer, support operations, knowledge, enablement]
+    exclude_keywords: [onsite only]
+    target_regions: [Europe, Germany, Remote]
+    enabled: false
+  - company_name: 1Password
+    career_url: https://1password.com/jobs
+    source_type: company
+    adapter_type: static_html
+    remote_policy_notes: Remote-friendly.
+    culture_notes: Security SaaS and customer trust.
+    priority: medium
+    include_keywords: [customer, solutions, enablement, support]
+    exclude_keywords: [security clearance, US only]
+    target_regions: [Europe, Remote]
+    enabled: false
+  - company_name: Dagster
+    career_url: https://dagster.io/careers
+    source_type: company
+    adapter_type: static_html
+    remote_policy_notes: Remote-friendly.
+    culture_notes: Data platform, developer education.
+    priority: medium
+    include_keywords: [developer, education, solutions, docs]
+    exclude_keywords: [onsite only]
+    target_regions: [Europe, Remote]
+    enabled: false
+  - company_name: HashiCorp
+    career_url: https://www.hashicorp.com/careers
+    source_type: company
+    adapter_type: generic_playwright
+    remote_policy_notes: Remote-friendly by role.
+    culture_notes: Infrastructure, customer success, enablement.
+    priority: medium
+    include_keywords: [solutions, architect, customer, enablement]
+    exclude_keywords: [US only]
+    target_regions: [Europe, Germany, Remote]
+    enabled: false
+  - company_name: CrowdStrike
+    career_url: https://www.crowdstrike.com/careers/
+    source_type: company
+    adapter_type: generic_playwright
+    remote_policy_notes: Remote-friendly by region.
+    culture_notes: Security, observability-adjacent operations.
+    priority: low
+    include_keywords: [customer, solutions, operations, automation]
+    exclude_keywords: [security clearance, onsite only]
+    target_regions: [Europe, Germany, Remote]
+    enabled: false
+  - company_name: Linear
+    career_url: https://linear.app/careers
+    source_type: company
+    adapter_type: static_html
+    remote_policy_notes: Remote-friendly, small team.
+    culture_notes: Product engineering and customer experience.
+    priority: medium
+    include_keywords: [customer, support, education, developer]
+    exclude_keywords: [onsite only]
+    target_regions: [Europe, Remote]
+    enabled: false
+  - company_name: ClickHouse
+    career_url: https://clickhouse.com/company/careers
+    source_type: company
+    adapter_type: generic_playwright
+    remote_policy_notes: Remote-friendly by role.
+    culture_notes: Database, search-adjacent analytics, customer engineering.
+    priority: high
+    include_keywords: [solutions, customer, database, observability, education]
+    exclude_keywords: [US only]
+    target_regions: [Europe, Germany, Remote]
+    enabled: false
+  - company_name: HiringCafe
+    career_url: https://hiring.cafe/
+    source_type: job_board
+    adapter_type: static_html
+    remote_policy_notes: Job board reference source. Prefer manual saved searches where dynamic scraping is fragile.
+    culture_notes: Aggregated job search.
+    priority: medium
+    include_keywords: [remote, AI, RAG, search, support automation]
+    exclude_keywords: [onsite only, US only]
+    target_regions: [Europe, Germany, Remote]
+    enabled: false
+  - company_name: Himalayas
+    career_url: https://himalayas.app/jobs
+    source_type: job_board
+    adapter_type: static_html
+    remote_policy_notes: Remote jobs board.
+    culture_notes: Aggregated remote roles.
+    priority: medium
+    include_keywords: [remote, AI, solutions, search]
+    exclude_keywords: [US only]
+    target_regions: [Europe, Remote]
+    enabled: false
+  - company_name: Wellfound
+    career_url: https://wellfound.com/jobs
+    source_type: job_board
+    adapter_type: static_html
+    remote_policy_notes: Treat as manual reference unless safe supported access is available.
+    culture_notes: Startup roles.
+    priority: low
+    include_keywords: [AI, search, remote, solutions]
+    exclude_keywords: [onsite only]
+    target_regions: [Europe, Remote]
+    enabled: false
+  - company_name: Y Combinator Jobs
+    career_url: https://www.ycombinator.com/jobs
+    source_type: job_board
+    adapter_type: static_html
+    remote_policy_notes: Startup board; use polite scraping only.
+    culture_notes: Early-stage companies.
+    priority: medium
+    include_keywords: [AI, RAG, search, solutions, remote]
+    exclude_keywords: [US only, onsite only]
+    target_regions: [Europe, Remote]
+    enabled: false
+  - company_name: We Work Remotely
+    career_url: https://weworkremotely.com/
+    source_type: job_board
+    adapter_type: static_html
+    remote_policy_notes: Remote job board.
+    culture_notes: Aggregated remote roles.
+    priority: medium
+    include_keywords: [AI, search, customer, support operations, remote]
+    exclude_keywords: [US only]
+    target_regions: [Europe, Remote]
+    enabled: false
+  - company_name: Remote OK
+    career_url: https://remoteok.com/
+    source_type: job_board
+    adapter_type: static_html
+    remote_policy_notes: Remote job board; avoid aggressive scraping.
+    culture_notes: Aggregated remote roles.
+    priority: medium
+    include_keywords: [AI, search, solutions, customer, remote]
+    exclude_keywords: [US only]
+    target_regions: [Europe, Remote]
+    enabled: false
+  - company_name: Welcome to the Jungle
+    career_url: https://www.welcometothejungle.com/en/jobs
+    source_type: job_board
+    adapter_type: static_html
+    remote_policy_notes: Job board; use manual/saved-search approach if terms require.
+    culture_notes: Europe-focused job discovery.
+    priority: medium
+    include_keywords: [AI, search, support operations, customer, remote]
+    exclude_keywords: [onsite only]
+    target_regions: [Europe, Germany, Remote]
+    enabled: false
+  - company_name: LinkedIn Manual Reference
+    career_url: https://www.linkedin.com/jobs/
+    source_type: manual_reference
+    adapter_type: static_html
+    remote_policy_notes: Do not scrape aggressively. Use manual saved searches or official/safe methods only.
+    culture_notes: Manual discovery reference.
+    priority: low
+    include_keywords: [AI, RAG, search, solutions, enablement]
+    exclude_keywords: [onsite only, US only]
+    target_regions: [Europe, Germany, Remote]
+    enabled: false
