@@ -4,9 +4,10 @@ import { Layout } from './components/Layout';
 import { BrowserAssistant } from './pages/BrowserAssistant';
 import { Dashboard } from './pages/Dashboard';
 import { Jobs } from './pages/Jobs';
+import { SearchStrategy } from './pages/SearchStrategy';
 import { Settings } from './pages/Settings';
 import { Sources } from './pages/Sources';
-import type { Job, ManualCapturePayload, SavedSearch, SavedSearchPayload, ScrapeRun, Source, Stats } from './types';
+import type { Job, ManualCapturePayload, SavedSearch, SavedSearchPayload, ScrapeRun, SearchQueryVariant, Source, Stats } from './types';
 
 export default function App() {
   const [active, setActive] = useState('dashboard');
@@ -14,6 +15,7 @@ export default function App() {
   const [jobs, setJobs] = useState<Job[]>([]);
   const [sources, setSources] = useState<Source[]>([]);
   const [savedSearches, setSavedSearches] = useState<SavedSearch[]>([]);
+  const [searchQueries, setSearchQueries] = useState<SearchQueryVariant[]>([]);
   const [runs, setRuns] = useState<ScrapeRun[]>([]);
   const [profile, setProfile] = useState<Record<string, unknown> | null>(null);
   const [selected, setSelected] = useState<Job | null>(null);
@@ -24,11 +26,12 @@ export default function App() {
   const [pollUntil, setPollUntil] = useState<number | null>(null);
 
   const load = useCallback(async () => {
-    const [statsData, jobsData, sourcesData, savedSearchData, runsData, profileData] = await Promise.all([
+    const [statsData, jobsData, sourcesData, savedSearchData, strategyData, runsData, profileData] = await Promise.all([
       api.stats(),
       api.jobs(),
       api.sources(),
       api.savedSearches(),
+      api.searchStrategy(),
       api.runs(),
       api.profile(),
     ]);
@@ -36,6 +39,7 @@ export default function App() {
     setJobs(jobsData);
     setSources(sourcesData);
     setSavedSearches(savedSearchData);
+    setSearchQueries(strategyData.queries);
     setRuns(runsData);
     setProfile(profileData);
     setSelected((current) => current ?? jobsData[0] ?? null);
@@ -127,6 +131,7 @@ export default function App() {
       {active === 'jobs' && <Jobs jobs={visibleJobs} selected={selected} setSelected={setSelected} onUpdate={updateJob} filters={filters} setFilters={setFilters} />}
       {active === 'sources' && <Sources sources={sources} onToggle={toggleSource} onRunSource={runSource} busySourceId={busySourceId} scrapeMessage={scrapeMessage} />}
       {active === 'browser' && <BrowserAssistant savedSearches={savedSearches} sources={sources} onOpenSavedSearch={openSavedSearch} onCreateSavedSearch={createSavedSearch} onDeleteSavedSearch={deleteSavedSearch} onManualCapture={manualCapture} />}
+      {active === 'strategy' && <SearchStrategy queries={searchQueries} />}
       {active === 'settings' && <Settings profile={profile} />}
     </Layout>
   );

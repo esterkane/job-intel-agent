@@ -1,4 +1,4 @@
-import type { Job, ManualCapturePayload, SavedSearch, SavedSearchPayload, ScrapeRun, Source, Stats } from '../types';
+import type { Job, ManualCapturePayload, SavedSearch, SavedSearchPayload, ScrapeRun, SearchQueryVariant, Source, Stats } from '../types';
 
 const API_BASE = import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:8000';
 
@@ -21,6 +21,7 @@ export const api = {
   sources: () => request<Source[]>('/api/sources'),
   updateSource: (id: number, payload: Partial<Source>) => request<Source>(`/api/sources/${id}`, { method: 'PATCH', body: JSON.stringify(payload) }),
   savedSearches: () => request<SavedSearch[]>('/api/saved-searches'),
+  searchStrategy: () => request<{ queries: SearchQueryVariant[] }>('/api/search-strategy'),
   createSavedSearch: (payload: SavedSearchPayload) => request<SavedSearch>('/api/saved-searches', { method: 'POST', body: JSON.stringify(payload) }),
   updateSavedSearch: (id: number, payload: Partial<SavedSearchPayload>) => request<SavedSearch>(`/api/saved-searches/${id}`, { method: 'PATCH', body: JSON.stringify(payload) }),
   deleteSavedSearch: (id: number) => request<{ deleted: boolean }>(`/api/saved-searches/${id}`, { method: 'DELETE' }),

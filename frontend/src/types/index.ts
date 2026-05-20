@@ -97,3 +97,18 @@ export type SavedSearchPayload = {
   enabled?: boolean;
   notes?: string | null;
 };
+
+export type SearchQueryVariant = {
+  id: string;
+  platform: string;
+  query_name: string;
+  role_family: string;
+  query: string;
+  language: string;
+  query_type: string;
+  mode: string;
+  url: string | null;
+  supported_features: string[];
+  negative_keywords: string[];
+  enabled: boolean;
+};

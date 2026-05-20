@@ -1,4 +1,4 @@
-import { BarChart3, BriefcaseBusiness, Building2, ClipboardEdit, Settings, Sparkles } from 'lucide-react';
+import { BarChart3, BriefcaseBusiness, Building2, ClipboardEdit, Search, Settings, Sparkles } from 'lucide-react';
 
 type Props = {
   active: string;
@@ -11,6 +11,7 @@ const nav = [
   { id: 'jobs', label: 'Jobs', icon: BriefcaseBusiness },
   { id: 'sources', label: 'Sources', icon: Building2 },
   { id: 'browser', label: 'Browser Assistant', icon: ClipboardEdit },
+  { id: 'strategy', label: 'Search Strategy', icon: Search },
   { id: 'settings', label: 'Settings', icon: Settings },
 ];
 

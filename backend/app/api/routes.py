@@ -21,6 +21,7 @@ from app.schemas.job import (
     SourceUpdate,
 )
 from app.scoring.matcher import JobScorer
+from app.search.query_builder import build_search_strategy
 from app.scrapers.base import NormalizedJob
 from app.services.ingestion import content_hash, run_source_scrape
 
@@ -106,6 +107,11 @@ def list_sources(db: Session = Depends(get_session)):
 def list_saved_searches(db: Session = Depends(get_session)):
     sync_saved_searches(db)
     return db.query(SavedSearch).order_by(SavedSearch.platform, SavedSearch.query_name).all()
+
+
+@router.get("/search-strategy")
+def search_strategy():
+    return {"queries": build_search_strategy()}
 
 
 @router.post("/saved-searches", response_model=SavedSearchRead)
