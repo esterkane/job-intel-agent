@@ -1,4 +1,4 @@
-import type { Job, ScrapeRun, Source, Stats } from '../types';
+import type { Job, ManualCapturePayload, ScrapeRun, Source, Stats } from '../types';
 
 const API_BASE = import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:8000';
 
@@ -22,6 +22,7 @@ export const api = {
   updateSource: (id: number, payload: Partial<Source>) => request<Source>(`/api/sources/${id}`, { method: 'PATCH', body: JSON.stringify(payload) }),
   runScrape: (fresh = false) => request<{ queued: number; fresh: boolean; deleted: number }>(`/api/scrape/run${fresh ? '?fresh=true' : ''}`, { method: 'POST' }),
   runSource: (id: number, fresh = false) => request<ScrapeRun>(`/api/scrape/run/${id}${fresh ? '?fresh=true' : ''}`, { method: 'POST' }),
+  manualCapture: (payload: ManualCapturePayload) => request<Job>('/api/manual-capture', { method: 'POST', body: JSON.stringify(payload) }),
   runs: () => request<ScrapeRun[]>('/api/scrape/runs'),
-  profile: () => request<Record<string, unknown>>('/api/profile'),
+  profile: () => request<Record<string, unknown>>('/api/search-profile'),
 };

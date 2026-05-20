@@ -1,4 +1,4 @@
-import { BarChart3, BriefcaseBusiness, Building2, Settings, Sparkles } from 'lucide-react';
+import { BarChart3, BriefcaseBusiness, Building2, ClipboardEdit, Settings, Sparkles } from 'lucide-react';
 
 type Props = {
   active: string;
@@ -10,6 +10,7 @@ const nav = [
   { id: 'dashboard', label: 'Dashboard', icon: BarChart3 },
   { id: 'jobs', label: 'Jobs', icon: BriefcaseBusiness },
   { id: 'sources', label: 'Sources', icon: Building2 },
+  { id: 'manual', label: 'Manual Capture', icon: ClipboardEdit },
   { id: 'settings', label: 'Settings', icon: Settings },
 ];
 
@@ -24,7 +25,7 @@ export function Layout({ active, setActive, children }: Props) {
             </div>
             <div>
               <h1 className="text-lg font-semibold leading-tight">Job Intel Agent</h1>
-              <p className="text-sm text-slate-600">Local-first strategic job discovery for Sanja</p>
+              <p className="text-sm text-slate-600">Local-first strategic job discovery for Brian</p>
             </div>
           </div>
           <nav className="flex flex-wrap gap-2">

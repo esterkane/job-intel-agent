@@ -1,0 +1,68 @@
+platforms:
+  - name: Arbeitnow
+    url: https://www.arbeitnow.com/api/job-board-api
+    source_type: api_json
+    enabled: true
+  - name: Working Nomads
+    url: https://www.workingnomads.com/api/exposed_jobs/
+    source_type: api_json
+    enabled: true
+
+  - name: EnglishJobs.de
+    url: https://englishjobs.de/jobs/remote
+    source_type: public_static
+    enabled: true
+  - name: DEVjobs.de
+    url: https://en.devjobs.de/
+    source_type: public_static
+    enabled: true
+  - name: Instaffo
+    url: https://jobs.instaffo.com/en/jobs/find
+    source_type: public_playwright
+    enabled: true
+  - name: StepStone
+    url: https://www.stepstone.de/jobs
+    source_type: public_playwright
+    enabled: false_by_default
+    note: public search page only; no login automation
+  - name: XING
+    url: https://www.xing.com/jobs
+    source_type: manual_browser_only
+    enabled: false_by_default
+    note: use manual saved search or job alerts; no authenticated scraping
+
+  - name: LinkedIn
+    url: https://www.linkedin.com/jobs
+    source_type: manual_browser_only
+    enabled: false
+    note: no automated scraping; use saved searches/job alerts/manual capture only
+  - name: Indeed
+    url: https://de.indeed.com/
+    source_type: manual_browser_only
+    enabled: false
+    note: no automated scraping; use alerts/manual capture only
+  - name: Glassdoor
+    url: https://www.glassdoor.com/
+    source_type: manual_browser_only
+    enabled: false
+    note: no automated scraping; use alerts/manual capture only
+  - name: FlexJobs
+    url: https://www.flexjobs.com/
+    source_type: manual_browser_only
+    enabled: false
+    note: membership platform; no scraping
+  - name: Wellfound
+    url: https://wellfound.com/jobs
+    source_type: manual_browser_only
+    enabled: false
+    note: use manual saved search or alert ingestion only
+  - name: PowerToFly
+    url: https://powertofly.com/jobs
+    source_type: manual_browser_only
+    enabled: false
+    note: no automated scraping; use manual search or alerts
+
+  - name: JobSpy
+    source_type: jobspy_optional
+    enabled: false
+    note: keep disabled by default; use only where allowed and at low volume; never use proxy rotation or bypass techniques

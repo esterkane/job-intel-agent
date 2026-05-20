@@ -1,0 +1,109 @@
+person:
+  name: Brian
+  location: Germany
+  background: Elastic Support Engineer
+  target_direction: Strategic AI search, RAG, knowledge systems, support workflow modernization, technical advisory, and agentic workflows.
+
+search_phrases:
+  - AI Search Engineer
+  - RAG Engineer
+  - Retrieval Engineer
+  - Search Backend Engineer
+  - Vector Search Engineer
+  - Semantic Search Engineer
+  - Knowledge Systems Engineer
+  - Knowledge Platform Engineer
+  - Agentic Workflow Engineer
+  - AI Workflow Engineer
+  - AI Automation Engineer
+  - Support Automation Engineer
+  - Customer Automation Engineer
+  - Technical Solutions Engineer AI
+  - Solutions Engineer Search
+  - Forward Deployed Engineer AI
+  - Developer Advocate Search AI
+  - Technical Writer Search AI
+  - KCS Knowledge Manager
+  - Knowledge Operations Engineer
+
+keyword_groups:
+  positive_core:
+    - RAG
+    - retrieval
+    - vector search
+    - semantic search
+    - hybrid search
+    - Elasticsearch
+    - OpenSearch
+    - Lucene
+    - embeddings
+    - reranking
+    - knowledge graph
+    - document processing
+    - document intelligence
+    - agentic workflow
+    - AI agents
+    - workflow automation
+    - support automation
+    - KCS
+    - knowledge base
+    - technical enablement
+    - customer advisory
+    - solutions engineering
+  positive_background_fit:
+    - Elastic Stack
+    - observability
+    - APM
+    - OpenTelemetry
+    - troubleshooting
+    - diagnostics
+    - support engineering
+    - customer-facing engineering
+    - technical advisory
+    - documentation
+    - knowledge management
+    - internal tooling
+    - automation
+    - Docker
+    - Kubernetes
+    - Python
+    - FastAPI
+    - React
+  negative:
+    - frontline support
+    - 24/7
+    - shift work
+    - helpdesk
+    - desktop support
+    - phone support
+    - call center
+    - hardware support
+    - pure SDR
+    - commission only
+    - unpaid
+    - onsite only
+    - US only
+    - security clearance required
+    - principal engineer only
+    - 8+ years backend only
+    - requires relocation
+
+target_location_logic:
+  - Prefer remote Germany
+  - Prefer remote EU
+  - Accept hybrid Munich/Augsburg only if limited onsite
+  - Accept global remote only if Germany/EU is explicitly allowed
+  - Penalize US-only, Canada-only, UK-only, onsite-only
+
+scoring_weights:
+  title_match_score: 0.15
+  description_match_score: 0.12
+  search_rag_score: 0.14
+  knowledge_systems_score: 0.10
+  agentic_workflow_score: 0.10
+  elastic_background_fit_score: 0.10
+  strategic_work_score: 0.10
+  remote_region_fit_score: 0.14
+  seniority_fit_score: 0.08
+  classic_support_penalty: 0.10
+  location_penalty: 0.18

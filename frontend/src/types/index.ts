@@ -62,3 +62,12 @@ export type ScrapeRun = {
   jobs_updated: number;
   error_message: string | null;
 };
+
+export type ManualCapturePayload = {
+  url?: string;
+  title: string;
+  company: string;
+  location?: string;
+  description: string;
+  notes?: string;
+};

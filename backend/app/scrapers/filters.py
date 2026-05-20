@@ -27,6 +27,7 @@ BLOCKED_REGION_TERMS = (
     "new york", "nyc", "austin", "dallas", "chicago", "raleigh", "charlotte", "seattle",
     "phoenix", "atlanta", "los angeles", "san diego", "las vegas", "denver", "boston",
     "salt lake city", "washington dc", "japan", "tokyo", "apac", "australia", "sydney", "singapore",
+    "remote united kingdom", "united kingdom (remote)", "uk only", "london", "amsterdam",
 )
 
 REMOTE_TERMS = (
@@ -66,16 +67,18 @@ def is_probable_job_link(title: str, url: str, context: str = "") -> bool:
 
 def is_region_compatible(text: str) -> bool:
     normalized = f" {clean_text(text).lower()} "
-    is_worldwide = any(term in normalized for term in [
-        "work from anywhere", "remote worldwide", "anywhere in the world", "global remote", "remote anywhere",
-    ])
-    if is_worldwide:
-        return True
     if US_STATE_RE.search(normalized):
         return False
     if any(term in normalized for term in BLOCKED_REGION_TERMS):
         return False
     if any(term in normalized for term in REMOTE_GERMANY_EUROPE_TERMS):
+        return True
+    is_worldwide = any(term in normalized for term in [
+        "work from anywhere", "remote worldwide", "anywhere in the world", "global remote", "remote anywhere",
+    ])
+    if is_worldwide:
+        return any(term in normalized for term in ["germany", "europe", " eu ", "emea", "cet", "cest"])
+    if "hybrid" in normalized and any(city in normalized for city in ["munich", "augsburg", "muenchen", "münchen"]):
         return True
     return False
 

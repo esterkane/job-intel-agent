@@ -1,16 +1,29 @@
+from datetime import UTC, datetime
+
 from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException
 from sqlalchemy import desc, func
 from sqlalchemy.orm import Session
 
-from app.config.loader import load_profile, sync_sources
+from app.config.loader import load_profile, load_search_profile, sync_sources
 from app.db.session import get_session
-from app.models import Job, ScrapeRun, Source
-from app.schemas.job import JobRead, JobUpdate, ScrapeRunRead, SourceRead, SourceUpdate
-from app.services.ingestion import run_source_scrape
+from app.models import Job, ManualJobCapture, ScrapeRun, Source
+from app.schemas.job import JobRead, JobUpdate, ManualCaptureCreate, ScrapeRunRead, SourceRead, SourceUpdate
+from app.scoring.matcher import JobScorer
+from app.scrapers.base import NormalizedJob
+from app.services.ingestion import content_hash, run_source_scrape
 
 router = APIRouter()
 
 PRESERVED_JOB_STATUSES = {"saved", "applied"}
+PLATFORM_SOURCE_TYPES = {
+    "api_json",
+    "public_static",
+    "public_playwright",
+    "rss_or_feed",
+    "jobspy_optional",
+    "manual_browser_only",
+    "disabled_due_to_terms",
+}
 
 
 def delete_existing_imported_jobs(db: Session, source: Source | None = None) -> int:
@@ -68,7 +81,12 @@ def update_job(job_id: int, payload: JobUpdate, db: Session = Depends(get_sessio
 @router.get("/sources", response_model=list[SourceRead])
 def list_sources(db: Session = Depends(get_session)):
     sync_sources(db)
-    return db.query(Source).order_by(Source.company_name).all()
+    return (
+        db.query(Source)
+        .filter(Source.source_type.in_(PLATFORM_SOURCE_TYPES))
+        .order_by(desc(Source.enabled), Source.company_name)
+        .all()
+    )
 
 
 @router.patch("/sources/{source_id}", response_model=SourceRead)
@@ -129,6 +147,62 @@ def list_runs(db: Session = Depends(get_session)):
     return db.query(ScrapeRun).order_by(desc(ScrapeRun.started_at)).limit(100).all()
 
 
+@router.post("/manual-capture", response_model=JobRead)
+def manual_capture(payload: ManualCaptureCreate, db: Session = Depends(get_session)):
+    normalized = NormalizedJob(
+        source_name="Manual Capture",
+        source_type="manual_browser_only",
+        company=payload.company,
+        title=payload.title,
+        location=payload.location,
+        remote_type="remote" if "remote" in f"{payload.location or ''} {payload.description}".lower() else None,
+        region="Germany/EU" if any(term in f"{payload.location or ''} {payload.description}".lower() for term in ["germany", "europe", "eu", "emea", "cet", "cest"]) else None,
+        job_url=payload.url or f"manual://{payload.company}/{payload.title}",
+        description=payload.description,
+        raw_source={"adapter": "manual_capture"},
+    )
+    hash_value = content_hash(normalized)
+    existing = (
+        db.query(Job)
+        .filter(Job.company == normalized.company, Job.title == normalized.title, Job.location == normalized.location, Job.job_url == normalized.job_url)
+        .one_or_none()
+    )
+    scored = JobScorer(load_search_profile()).score(normalized.__dict__, company_priority="medium")
+    values = {
+        **normalized.__dict__,
+        "content_hash": hash_value,
+        "last_seen_at": datetime.now(UTC),
+        "final_score": scored.final_score,
+        "score_breakdown": scored.score_breakdown,
+        "role_family": scored.role_family,
+        "why_this_matches": scored.why_this_matches,
+        "concerns": scored.concerns,
+        "suggested_application_angle": scored.suggested_application_angle,
+        "suggested_cv_emphasis": scored.suggested_cv_emphasis,
+        "notes": payload.notes,
+    }
+    if existing:
+        for key, value in values.items():
+            if key not in {"status", "first_seen_at"}:
+                setattr(existing, key, value)
+        job = existing
+    else:
+        job = Job(**values)
+        db.add(job)
+        db.flush()
+    db.add(ManualJobCapture(
+        job_id=job.id,
+        url=payload.url,
+        title=payload.title,
+        company=payload.company,
+        description=payload.description,
+        raw_payload_json=payload.model_dump(),
+    ))
+    db.commit()
+    db.refresh(job)
+    return job
+
+
 @router.get("/stats")
 def stats(db: Session = Depends(get_session)):
     total = db.query(func.count(Job.id)).scalar() or 0
@@ -152,6 +226,16 @@ def get_profile():
     return load_profile()
 
 
+@router.get("/search-profile")
+def get_search_profile():
+    return load_search_profile()
+
+
+@router.put("/search-profile")
+def put_search_profile():
+    raise HTTPException(status_code=501, detail="Search profile editing is a frontend placeholder in this MVP. Edit config/search_profile.yaml.")
+
+
 @router.put("/profile")
 def put_profile():
-    raise HTTPException(status_code=501, detail="Profile editing is a frontend placeholder in this MVP. Edit config/profile.yaml.")
+    raise HTTPException(status_code=501, detail="Profile editing is a frontend placeholder in this MVP. Edit config/search_profile.yaml.")

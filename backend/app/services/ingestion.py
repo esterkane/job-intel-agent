@@ -14,6 +14,13 @@ from app.scrapers.base import NormalizedJob, ScraperAdapter
 from app.scrapers.filters import is_region_compatible
 from app.scrapers.generic_playwright_adapter import GenericPlaywrightAdapter
 from app.scrapers.jobspy_adapter import JobSpyAdapter
+from app.scrapers.platform_adapters import (
+    ArbeitnowAdapter,
+    ManualBrowserSource,
+    PublicPlaywrightAdapter,
+    PublicStaticAdapter,
+    WorkingNomadsAdapter,
+)
 from app.scrapers.static_html_adapter import StaticHtmlAdapter
 
 
@@ -23,6 +30,18 @@ def content_hash(job: NormalizedJob) -> str:
 
 
 def adapter_for(source: Source) -> ScraperAdapter:
+    if source.source_type == "api_json" and source.company_name.lower() == "arbeitnow":
+        return ArbeitnowAdapter()
+    if source.source_type == "api_json" and source.company_name.lower() == "working nomads":
+        return WorkingNomadsAdapter()
+    if source.source_type == "public_static":
+        return PublicStaticAdapter()
+    if source.source_type == "public_playwright":
+        return PublicPlaywrightAdapter()
+    if source.source_type in {"manual_browser_only", "disabled_due_to_terms"}:
+        return ManualBrowserSource()
+    if source.source_type == "jobspy_optional":
+        return JobSpyAdapter()
     adapters: dict[str, ScraperAdapter] = {
         "static_html": StaticHtmlAdapter(),
         "generic_playwright": GenericPlaywrightAdapter(),

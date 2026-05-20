@@ -99,3 +99,30 @@ class Job(Base):
     updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow, onupdate=utcnow)
 
     scrape_run: Mapped[ScrapeRun | None] = relationship(back_populates="jobs")
+
+
+class SearchQuery(Base):
+    __tablename__ = "search_queries"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    phrase: Mapped[str] = mapped_column(String(255), unique=True)
+    enabled: Mapped[bool] = mapped_column(Boolean, default=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+
+
+class ManualJobCapture(Base):
+    __tablename__ = "manual_job_captures"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    job_id: Mapped[int | None] = mapped_column(ForeignKey("jobs.id"), nullable=True)
+    url: Mapped[str | None] = mapped_column(Text, nullable=True)
+    title: Mapped[str] = mapped_column(String(500))
+    company: Mapped[str] = mapped_column(String(255), default="Manual")
+    description: Mapped[str | None] = mapped_column(Text, nullable=True)
+    raw_payload_json: Mapped[dict] = mapped_column(JSON, default=dict)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+
+
+JobPlatformSource = Source
+JobPosting = Job
+JobScore = Job

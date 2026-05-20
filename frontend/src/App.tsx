@@ -3,9 +3,10 @@ import { api } from './api/client';
 import { Layout } from './components/Layout';
 import { Dashboard } from './pages/Dashboard';
 import { Jobs } from './pages/Jobs';
+import { ManualCapture } from './pages/ManualCapture';
 import { Settings } from './pages/Settings';
 import { Sources } from './pages/Sources';
-import type { Job, ScrapeRun, Source, Stats } from './types';
+import type { Job, ManualCapturePayload, ScrapeRun, Source, Stats } from './types';
 
 export default function App() {
   const [active, setActive] = useState('dashboard');
@@ -95,11 +96,19 @@ export default function App() {
     await load();
   }
 
+  async function manualCapture(payload: ManualCapturePayload) {
+    const job = await api.manualCapture(payload);
+    await load();
+    setSelected(job);
+    return job;
+  }
+
   return (
     <Layout active={active} setActive={setActive}>
       {active === 'dashboard' && <Dashboard stats={stats} runs={runs} onRunScrape={runScrape} scrapeMessage={scrapeMessage} isScraping={isScraping} />}
       {active === 'jobs' && <Jobs jobs={visibleJobs} selected={selected} setSelected={setSelected} onUpdate={updateJob} filters={filters} setFilters={setFilters} />}
       {active === 'sources' && <Sources sources={sources} onToggle={toggleSource} onRunSource={runSource} busySourceId={busySourceId} scrapeMessage={scrapeMessage} />}
+      {active === 'manual' && <ManualCapture onSubmit={manualCapture} />}
       {active === 'settings' && <Settings profile={profile} />}
     </Layout>
   );

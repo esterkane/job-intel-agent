@@ -24,6 +24,8 @@ def _cosine(a: list[float], b: list[float]) -> float:
 def semantic_match(job_text: str) -> tuple[list[float] | None, float | None]:
     try:
         profile_text = load_profile().get("target_profile_text", "")
+        if not profile_text.strip():
+            return None, None
         model = _model()
         vectors = model.encode([profile_text, job_text], normalize_embeddings=True).tolist()
         semantic_score = round(max(0, _cosine(vectors[0], vectors[1])) * 100, 1)

@@ -65,6 +65,15 @@ class JobUpdate(BaseModel):
     notes: str | None = None
 
 
+class ManualCaptureCreate(BaseModel):
+    url: str | None = None
+    title: str
+    company: str = "Manual"
+    location: str | None = None
+    description: str
+    notes: str | None = None
+
+
 class ScrapeRunRead(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 

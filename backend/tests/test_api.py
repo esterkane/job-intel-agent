@@ -36,7 +36,7 @@ def test_basic_job_api():
             description="Customer advisory and OpenTelemetry",
             content_hash="abc",
             final_score=88,
-            score_breakdown={"remote_fit_score": 95},
+            score_breakdown={"remote_region_fit_score": 95},
         )
     )
     db.commit()
@@ -44,3 +44,21 @@ def test_basic_job_api():
     response = client.get("/api/jobs")
     assert response.status_code == 200
     assert response.json()[0]["company"] == "Grafana Labs"
+
+
+def test_manual_capture_scores_and_saves_job():
+    init_db()
+    response = client.post(
+        "/api/manual-capture",
+        json={
+            "title": "Knowledge Systems Engineer",
+            "company": "ExampleCo",
+            "location": "Remote Germany",
+            "description": "Build RAG retrieval, Elasticsearch, KCS, and support automation workflows.",
+            "url": "https://example.com/manual-job",
+        },
+    )
+    assert response.status_code == 200
+    body = response.json()
+    assert body["company"] == "ExampleCo"
+    assert body["final_score"] >= 40
