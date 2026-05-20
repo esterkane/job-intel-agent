@@ -1,6 +1,6 @@
 from collections.abc import Generator
 
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, inspect, text
 from sqlalchemy.orm import DeclarativeBase, Session, sessionmaker
 from sqlalchemy.pool import StaticPool
 
@@ -22,6 +22,17 @@ def init_db() -> None:
     from app.models import job  # noqa: F401
 
     Base.metadata.create_all(bind=engine)
+    _ensure_compat_columns()
+
+
+def _ensure_compat_columns() -> None:
+    inspector = inspect(engine)
+    if "jobs" not in inspector.get_table_names():
+        return
+    job_columns = {column["name"] for column in inspector.get_columns("jobs")}
+    if "ingestion_method" not in job_columns:
+        with engine.begin() as connection:
+            connection.execute(text("ALTER TABLE jobs ADD COLUMN ingestion_method VARCHAR(40) DEFAULT 'public_scrape'"))
 
 
 def get_session() -> Generator[Session, None, None]:

@@ -12,6 +12,7 @@ The app discovers, ranks, explains, and helps prepare for jobs. It does **not** 
 - Scores jobs from 0-100 with deterministic local logic focused on AI search, RAG, knowledge systems, agentic workflows, and Elastic background fit.
 - Enforces strict location logic: remote Germany and remote EU/EMEA are preferred; US-only, Canada-only, UK-only, London, Amsterdam, onsite-only, and relocation-required roles are penalized or filtered.
 - Provides a React dashboard for jobs, source health, scrape status, notes, status updates, and manual capture.
+- Provides a Browser Assistant for safe manual review of login-heavy platforms.
 
 ## What It Does Not Do
 
@@ -20,6 +21,7 @@ The app discovers, ranks, explains, and helps prepare for jobs. It does **not** 
 - No stealth scraping, CAPTCHA bypass, fake accounts, or proxy rotation.
 - No aggressive crawling.
 - No required OpenAI API usage.
+- No automatic application submission or form filling.
 
 ## Cost Model
 
@@ -61,6 +63,18 @@ docker compose --profile llm up --build
 - `disabled_due_to_terms`: visible as a reference but never scraped.
 
 Manual-only sources include LinkedIn, Indeed, Glassdoor, FlexJobs, Wellfound, PowerToFly, and XING. Use saved searches, job alerts, or the Manual Capture page. The app never automates bulk extraction from logged-in or restricted pages.
+
+## Browser Assistant
+
+The Browser Assistant has three safe workflows:
+
+- Saved Search Launcher: the app stores search URLs and opens them in your browser. You review results manually; the app does not scrape logged-in result pages.
+- Manual Job Capture: paste URL, title, company, location, and description. The backend normalizes, deduplicates, scores, and stores the job with `source_type=manual_capture` and `ingestion_method=manual_capture`.
+- Optional Browser Session: hidden unless a source is explicitly configured as `source_type: browser_allowed`. Login is initiated manually by the user in a visible browser, credentials are never stored by the app directly, and extraction is limited to sources where permission has been checked.
+
+Seeded saved searches live in `config/saved_searches.yaml`. You can add/edit/delete saved searches from the Browser Assistant page or via `/api/saved-searches`.
+
+Logged-in scraping is disabled by default because many job platforms restrict automated extraction. To add a browser-allowed source, first review the platform terms and robots guidance, document the decision in `config/job_platforms.yaml` under `tos_review`, then change the source to `browser_allowed`. Do not use this for LinkedIn, Indeed, Glassdoor, FlexJobs, Wellfound, PowerToFly, XING, StepStone, or Instaffo unless you have explicit permission for the intended use.
 
 ## Run A Scrape
 

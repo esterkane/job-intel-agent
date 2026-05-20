@@ -3,66 +3,122 @@ platforms:
     url: https://www.arbeitnow.com/api/job-board-api
     source_type: api_json
     enabled: true
+    browser_allowed: false
+    tos_review:
+      reviewed: true
+      notes: public JSON API
   - name: Working Nomads
     url: https://www.workingnomads.com/api/exposed_jobs/
     source_type: api_json
     enabled: true
+    browser_allowed: false
+    tos_review:
+      reviewed: true
+      notes: public exposed jobs API
 
   - name: EnglishJobs.de
     url: https://englishjobs.de/jobs/remote
     source_type: public_static
     enabled: true
+    browser_allowed: false
+    tos_review:
+      reviewed: false
+      notes: public page only; keep low-volume and unauthenticated
   - name: DEVjobs.de
     url: https://en.devjobs.de/
     source_type: public_static
     enabled: true
+    browser_allowed: false
+    tos_review:
+      reviewed: false
+      notes: public page only; keep low-volume and unauthenticated
   - name: Instaffo
     url: https://jobs.instaffo.com/en/jobs/find
     source_type: public_playwright
     enabled: true
+    browser_allowed: false
+    tos_review:
+      reviewed: false
+      notes: if login/session is needed, switch to manual_browser_only unless permission is confirmed
   - name: StepStone
     url: https://www.stepstone.de/jobs
     source_type: public_playwright
     enabled: false_by_default
     note: public search page only; no login automation
+    browser_allowed: false
+    tos_review:
+      reviewed: false
+      notes: use manual mode if login/session is needed
   - name: XING
     url: https://www.xing.com/jobs
     source_type: manual_browser_only
     enabled: false_by_default
     note: use manual saved search or job alerts; no authenticated scraping
+    browser_allowed: false
+    tos_review:
+      reviewed: false
+      notes: manual saved search or alerts only
 
   - name: LinkedIn
     url: https://www.linkedin.com/jobs
     source_type: manual_browser_only
     enabled: false
     note: no automated scraping; use saved searches/job alerts/manual capture only
+    browser_allowed: false
+    tos_review:
+      reviewed: false
+      notes: logged-in content stays manual-only
   - name: Indeed
     url: https://de.indeed.com/
     source_type: manual_browser_only
     enabled: false
     note: no automated scraping; use alerts/manual capture only
+    browser_allowed: false
+    tos_review:
+      reviewed: false
+      notes: manual saved search or alerts only
   - name: Glassdoor
     url: https://www.glassdoor.com/
     source_type: manual_browser_only
     enabled: false
     note: no automated scraping; use alerts/manual capture only
+    browser_allowed: false
+    tos_review:
+      reviewed: false
+      notes: manual saved search or alerts only
   - name: FlexJobs
     url: https://www.flexjobs.com/
     source_type: manual_browser_only
     enabled: false
     note: membership platform; no scraping
+    browser_allowed: false
+    tos_review:
+      reviewed: false
+      notes: membership platform; manual review only
   - name: Wellfound
     url: https://wellfound.com/jobs
     source_type: manual_browser_only
     enabled: false
     note: use manual saved search or alert ingestion only
+    browser_allowed: false
+    tos_review:
+      reviewed: false
+      notes: manual saved search or alerts only
   - name: PowerToFly
     url: https://powertofly.com/jobs
     source_type: manual_browser_only
     enabled: false
     note: no automated scraping; use manual search or alerts
+    browser_allowed: false
+    tos_review:
+      reviewed: false
+      notes: manual saved search or alerts only
 
   - name: JobSpy
     source_type: jobspy_optional
     enabled: false
     note: keep disabled by default; use only where allowed and at low volume; never use proxy rotation or bypass techniques
+    browser_allowed: false
+    tos_review:
+      reviewed: false
+      notes: disabled by default; verify each target before use

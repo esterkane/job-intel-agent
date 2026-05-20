@@ -1,0 +1,272 @@
+saved_searches:
+  - platform: LinkedIn
+    query_name: AI Search RAG Backend Engineer remote Germany/EU
+    role_family: AI Search / RAG
+    url: https://www.linkedin.com/jobs/search/?keywords=AI%20Search%20RAG%20Backend%20Engineer&location=Germany&f_WT=2
+    region: Germany/EU
+    remote_filter: remote
+    enabled: true
+    notes: Manual review only; do not scrape logged-in LinkedIn pages.
+  - platform: LinkedIn
+    query_name: Knowledge Systems Engineer remote
+    role_family: Knowledge Systems
+    url: https://www.linkedin.com/jobs/search/?keywords=Knowledge%20Systems%20Engineer&location=Germany&f_WT=2
+    region: Germany/EU
+    remote_filter: remote
+    enabled: true
+    notes: Manual review only.
+  - platform: LinkedIn
+    query_name: Agentic Workflow Engineer remote
+    role_family: Agentic Workflow
+    url: https://www.linkedin.com/jobs/search/?keywords=Agentic%20Workflow%20Engineer&location=Germany&f_WT=2
+    region: Germany/EU
+    remote_filter: remote
+    enabled: true
+    notes: Manual review only.
+  - platform: LinkedIn
+    query_name: Technical Solutions Engineer AI Search remote
+    role_family: Solutions / Technical Advisory
+    url: https://www.linkedin.com/jobs/search/?keywords=Technical%20Solutions%20Engineer%20AI%20Search&location=Germany&f_WT=2
+    region: Germany/EU
+    remote_filter: remote
+    enabled: true
+    notes: Manual review only.
+
+  - platform: Indeed
+    query_name: RAG Engineer remote Germany
+    role_family: AI Search / RAG
+    url: https://de.indeed.com/jobs?q=%22RAG+Engineer%22&l=Germany&sc=0kf%3Aattr%28DSQF7%29%3B
+    region: Germany
+    remote_filter: remote
+    enabled: true
+    notes: Manual review or job alerts only.
+  - platform: Indeed
+    query_name: AI Search Engineer remote
+    role_family: AI Search / RAG
+    url: https://de.indeed.com/jobs?q=%22AI+Search+Engineer%22&l=Germany&sc=0kf%3Aattr%28DSQF7%29%3B
+    region: Germany
+    remote_filter: remote
+    enabled: true
+    notes: Manual review or job alerts only.
+  - platform: Indeed
+    query_name: Knowledge Systems Engineer remote
+    role_family: Knowledge Systems
+    url: https://de.indeed.com/jobs?q=%22Knowledge+Systems+Engineer%22&l=Germany&sc=0kf%3Aattr%28DSQF7%29%3B
+    region: Germany
+    remote_filter: remote
+    enabled: true
+    notes: Manual review or job alerts only.
+  - platform: Indeed
+    query_name: AI Automation Engineer remote
+    role_family: Support Automation
+    url: https://de.indeed.com/jobs?q=%22AI+Automation+Engineer%22&l=Germany&sc=0kf%3Aattr%28DSQF7%29%3B
+    region: Germany
+    remote_filter: remote
+    enabled: true
+    notes: Manual review or job alerts only.
+
+  - platform: Glassdoor
+    query_name: RAG Engineer remote Germany
+    role_family: AI Search / RAG
+    url: https://www.glassdoor.com/Job/germany-rag-engineer-remote-jobs-SRCH_IL.0,7_IN96_KO8,27.htm
+    region: Germany/EU
+    remote_filter: remote
+    enabled: true
+    notes: Manual review only.
+  - platform: Glassdoor
+    query_name: AI Search Engineer remote
+    role_family: AI Search / RAG
+    url: https://www.glassdoor.com/Job/germany-ai-search-engineer-remote-jobs-SRCH_IL.0,7_IN96_KO8,33.htm
+    region: Germany/EU
+    remote_filter: remote
+    enabled: true
+    notes: Manual review only.
+  - platform: Glassdoor
+    query_name: Knowledge Systems Engineer remote
+    role_family: Knowledge Systems
+    url: https://www.glassdoor.com/Job/germany-knowledge-systems-engineer-remote-jobs-SRCH_IL.0,7_IN96_KO8,49.htm
+    region: Germany/EU
+    remote_filter: remote
+    enabled: true
+    notes: Manual review only.
+
+  - platform: StepStone
+    query_name: RAG Engineer
+    role_family: AI Search / RAG
+    url: https://www.stepstone.de/jobs/rag-engineer
+    region: Germany/EU
+    remote_filter: remote/manual
+    enabled: true
+    notes: Public/manual; no login automation.
+  - platform: StepStone
+    query_name: AI Engineer
+    role_family: AI Search / RAG
+    url: https://www.stepstone.de/jobs/ai-engineer
+    region: Germany/EU
+    remote_filter: remote/manual
+    enabled: true
+    notes: Public/manual; no login automation.
+  - platform: StepStone
+    query_name: Solution Engineer AI
+    role_family: Solutions / Technical Advisory
+    url: https://www.stepstone.de/jobs/solution-engineer-ai
+    region: Germany/EU
+    remote_filter: remote/manual
+    enabled: true
+    notes: Public/manual; no login automation.
+  - platform: StepStone
+    query_name: Knowledge Manager
+    role_family: Knowledge Systems
+    url: https://www.stepstone.de/jobs/knowledge-manager
+    region: Germany/EU
+    remote_filter: remote/manual
+    enabled: true
+    notes: Public/manual; no login automation.
+  - platform: StepStone
+    query_name: Technical Consultant AI
+    role_family: Solutions / Technical Advisory
+    url: https://www.stepstone.de/jobs/technical-consultant-ai
+    region: Germany/EU
+    remote_filter: remote/manual
+    enabled: true
+    notes: Public/manual; no login automation.
+  - platform: StepStone
+    query_name: Support Automation
+    role_family: Support Automation
+    url: https://www.stepstone.de/jobs/support-automation
+    region: Germany/EU
+    remote_filter: remote/manual
+    enabled: true
+    notes: Public/manual; no login automation.
+
+  - platform: Instaffo
+    query_name: Software Engineering + AI/RAG
+    role_family: AI Search / RAG
+    url: https://jobs.instaffo.com/en/jobs/find?query=AI%20RAG%20Software%20Engineering
+    region: Germany/EU
+    remote_filter: remote/manual
+    enabled: true
+    notes: Public/manual; if login is needed, use manual capture only.
+  - platform: Instaffo
+    query_name: Data + Search
+    role_family: AI Search / RAG
+    url: https://jobs.instaffo.com/en/jobs/find?query=Data%20Search
+    region: Germany/EU
+    remote_filter: remote/manual
+    enabled: true
+    notes: Public/manual; if login is needed, use manual capture only.
+  - platform: Instaffo
+    query_name: Consulting + AI automation
+    role_family: Solutions / Technical Advisory
+    url: https://jobs.instaffo.com/en/jobs/find?query=Consulting%20AI%20automation
+    region: Germany/EU
+    remote_filter: remote/manual
+    enabled: true
+    notes: Public/manual; if login is needed, use manual capture only.
+
+  - platform: XING
+    query_name: AI Engineer
+    role_family: AI Search / RAG
+    url: https://www.xing.com/jobs/search?keywords=AI%20Engineer
+    region: Germany/EU
+    remote_filter: manual
+    enabled: true
+    notes: Manual review only.
+  - platform: XING
+    query_name: Solution Engineer
+    role_family: Solutions / Technical Advisory
+    url: https://www.xing.com/jobs/search?keywords=Solution%20Engineer
+    region: Germany/EU
+    remote_filter: manual
+    enabled: true
+    notes: Manual review only.
+  - platform: XING
+    query_name: Knowledge Manager
+    role_family: Knowledge Systems
+    url: https://www.xing.com/jobs/search?keywords=Knowledge%20Manager
+    region: Germany/EU
+    remote_filter: manual
+    enabled: true
+    notes: Manual review only.
+  - platform: XING
+    query_name: Technical Consultant
+    role_family: Solutions / Technical Advisory
+    url: https://www.xing.com/jobs/search?keywords=Technical%20Consultant
+    region: Germany/EU
+    remote_filter: manual
+    enabled: true
+    notes: Manual review only.
+
+  - platform: DEVjobs.de
+    query_name: Python + AI
+    role_family: AI Search / RAG
+    url: https://en.devjobs.de/jobs/python-ai
+    region: Germany/EU
+    remote_filter: public/manual
+    enabled: true
+    notes: Public/manual review.
+  - platform: DEVjobs.de
+    query_name: Docker + AI
+    role_family: Support Automation
+    url: https://en.devjobs.de/jobs/docker-ai
+    region: Germany/EU
+    remote_filter: public/manual
+    enabled: true
+    notes: Public/manual review.
+  - platform: DEVjobs.de
+    query_name: Elasticsearch
+    role_family: AI Search / RAG
+    url: https://en.devjobs.de/jobs/elasticsearch
+    region: Germany/EU
+    remote_filter: public/manual
+    enabled: true
+    notes: Public/manual review.
+  - platform: DEVjobs.de
+    query_name: Kubernetes + AI
+    role_family: Support Automation
+    url: https://en.devjobs.de/jobs/kubernetes-ai
+    region: Germany/EU
+    remote_filter: public/manual
+    enabled: true
+    notes: Public/manual review.
+  - platform: DEVjobs.de
+    query_name: Claude n8n Puppeteer automation
+    role_family: Agentic Workflow
+    url: https://en.devjobs.de/jobs/automation
+    region: Germany/EU
+    remote_filter: public/manual
+    enabled: true
+    notes: Public/manual review; terms may vary by result.
+
+  - platform: EnglishJobs.de
+    query_name: remote AI Engineer
+    role_family: AI Search / RAG
+    url: https://englishjobs.de/jobs/remote?q=AI%20Engineer
+    region: Germany/EU
+    remote_filter: remote
+    enabled: true
+    notes: Public/manual review.
+  - platform: EnglishJobs.de
+    query_name: remote Search Engineer
+    role_family: AI Search / RAG
+    url: https://englishjobs.de/jobs/remote?q=Search%20Engineer
+    region: Germany/EU
+    remote_filter: remote
+    enabled: true
+    notes: Public/manual review.
+  - platform: EnglishJobs.de
+    query_name: remote Solutions Engineer
+    role_family: Solutions / Technical Advisory
+    url: https://englishjobs.de/jobs/remote?q=Solutions%20Engineer
+    region: Germany/EU
+    remote_filter: remote
+    enabled: true
+    notes: Public/manual review.
+  - platform: EnglishJobs.de
+    query_name: remote Knowledge Manager
+    role_family: Knowledge Systems
+    url: https://englishjobs.de/jobs/remote?q=Knowledge%20Manager
+    region: Germany/EU
+    remote_filter: remote
+    enabled: true
+    notes: Public/manual review.

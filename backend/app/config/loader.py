@@ -6,7 +6,7 @@ from pydantic import BaseModel, Field, HttpUrl
 from sqlalchemy.orm import Session
 
 from app.core.settings import get_settings
-from app.models import Source
+from app.models import SavedSearch, Source
 
 
 class SourceConfig(BaseModel):
@@ -29,6 +29,8 @@ class JobPlatformConfig(BaseModel):
     source_type: str
     enabled: bool | str = False
     note: str | None = None
+    browser_allowed: bool = False
+    tos_review: dict[str, Any] = Field(default_factory=dict)
 
     @property
     def is_enabled(self) -> bool:
@@ -66,6 +68,14 @@ def load_job_platforms() -> list[JobPlatformConfig]:
         return []
     raw = load_yaml("job_platforms.yaml")
     return [JobPlatformConfig.model_validate(item) for item in raw["platforms"]]
+
+
+def load_saved_searches() -> list[dict[str, Any]]:
+    path = config_path("saved_searches.yaml")
+    if not path.exists():
+        return []
+    raw = load_yaml("saved_searches.yaml")
+    return raw.get("saved_searches", [])
 
 
 def _platform_to_source(item: JobPlatformConfig, profile: dict[str, Any]) -> dict[str, Any]:
@@ -107,4 +117,24 @@ def sync_sources(db: Session) -> None:
                     setattr(existing, key, value)
         else:
             db.add(Source(**values))
+    db.commit()
+
+
+def sync_saved_searches(db: Session) -> None:
+    for item in load_saved_searches():
+        existing = (
+            db.query(SavedSearch)
+            .filter(
+                SavedSearch.platform == item["platform"],
+                SavedSearch.query_name == item["query_name"],
+                SavedSearch.url == item["url"],
+            )
+            .one_or_none()
+        )
+        if existing:
+            for key, value in item.items():
+                if key != "enabled":
+                    setattr(existing, key, value)
+        else:
+            db.add(SavedSearch(**item))
     db.commit()

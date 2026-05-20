@@ -1,13 +1,25 @@
 from datetime import UTC, datetime
+from urllib.parse import urlparse
 
 from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException
 from sqlalchemy import desc, func
 from sqlalchemy.orm import Session
 
-from app.config.loader import load_profile, load_search_profile, sync_sources
+from app.config.loader import load_profile, load_search_profile, sync_saved_searches, sync_sources
 from app.db.session import get_session
-from app.models import Job, ManualJobCapture, ScrapeRun, Source
-from app.schemas.job import JobRead, JobUpdate, ManualCaptureCreate, ScrapeRunRead, SourceRead, SourceUpdate
+from app.models import Job, ManualJobCapture, SavedSearch, ScrapeRun, Source
+from app.schemas.job import (
+    BrowserOpenSavedSearch,
+    JobRead,
+    JobUpdate,
+    ManualCaptureCreate,
+    SavedSearchCreate,
+    SavedSearchRead,
+    SavedSearchUpdate,
+    ScrapeRunRead,
+    SourceRead,
+    SourceUpdate,
+)
 from app.scoring.matcher import JobScorer
 from app.scrapers.base import NormalizedJob
 from app.services.ingestion import content_hash, run_source_scrape
@@ -22,6 +34,7 @@ PLATFORM_SOURCE_TYPES = {
     "rss_or_feed",
     "jobspy_optional",
     "manual_browser_only",
+    "browser_allowed",
     "disabled_due_to_terms",
 }
 
@@ -89,6 +102,70 @@ def list_sources(db: Session = Depends(get_session)):
     )
 
 
+@router.get("/saved-searches", response_model=list[SavedSearchRead])
+def list_saved_searches(db: Session = Depends(get_session)):
+    sync_saved_searches(db)
+    return db.query(SavedSearch).order_by(SavedSearch.platform, SavedSearch.query_name).all()
+
+
+@router.post("/saved-searches", response_model=SavedSearchRead)
+def create_saved_search(payload: SavedSearchCreate, db: Session = Depends(get_session)):
+    _validate_http_url(payload.url)
+    saved = SavedSearch(**payload.model_dump())
+    db.add(saved)
+    db.commit()
+    db.refresh(saved)
+    return saved
+
+
+@router.patch("/saved-searches/{saved_search_id}", response_model=SavedSearchRead)
+def update_saved_search(saved_search_id: int, payload: SavedSearchUpdate, db: Session = Depends(get_session)):
+    saved = db.get(SavedSearch, saved_search_id)
+    if not saved:
+        raise HTTPException(status_code=404, detail="Saved search not found")
+    updates = payload.model_dump(exclude_unset=True)
+    if "url" in updates and updates["url"]:
+        _validate_http_url(updates["url"])
+    for key, value in updates.items():
+        setattr(saved, key, value)
+    db.commit()
+    db.refresh(saved)
+    return saved
+
+
+@router.delete("/saved-searches/{saved_search_id}")
+def delete_saved_search(saved_search_id: int, db: Session = Depends(get_session)):
+    saved = db.get(SavedSearch, saved_search_id)
+    if not saved:
+        raise HTTPException(status_code=404, detail="Saved search not found")
+    db.delete(saved)
+    db.commit()
+    return {"deleted": True}
+
+
+@router.post("/browser/open-saved-search")
+def open_saved_search(payload: BrowserOpenSavedSearch, db: Session = Depends(get_session)):
+    saved: SavedSearch | None = None
+    if payload.saved_search_id is not None:
+        saved = db.get(SavedSearch, payload.saved_search_id)
+        if not saved:
+            raise HTTPException(status_code=404, detail="Saved search not found")
+        url = saved.url
+        platform = saved.platform
+    elif payload.url:
+        url = payload.url
+        platform = payload.platform or "Manual"
+    else:
+        raise HTTPException(status_code=400, detail="Provide saved_search_id or url.")
+    _validate_http_url(url)
+    return {
+        "open_url": url,
+        "platform": platform,
+        "mode": "saved_search_launcher",
+        "message": "Open this URL in the user's browser. The app does not scrape logged-in search result pages.",
+    }
+
+
 @router.patch("/sources/{source_id}", response_model=SourceRead)
 def update_source(source_id: int, payload: SourceUpdate, db: Session = Depends(get_session)):
     source = db.get(Source, source_id)
@@ -99,6 +176,12 @@ def update_source(source_id: int, payload: SourceUpdate, db: Session = Depends(g
     db.commit()
     db.refresh(source)
     return source
+
+
+def _validate_http_url(url: str) -> None:
+    parsed = urlparse(url)
+    if parsed.scheme not in {"http", "https"} or not parsed.netloc:
+        raise HTTPException(status_code=400, detail="Only http(s) saved-search URLs are supported.")
 
 
 async def _scrape_one(source_id: int) -> None:
@@ -151,7 +234,7 @@ def list_runs(db: Session = Depends(get_session)):
 def manual_capture(payload: ManualCaptureCreate, db: Session = Depends(get_session)):
     normalized = NormalizedJob(
         source_name="Manual Capture",
-        source_type="manual_browser_only",
+        source_type="manual_capture",
         company=payload.company,
         title=payload.title,
         location=payload.location,
@@ -171,6 +254,7 @@ def manual_capture(payload: ManualCaptureCreate, db: Session = Depends(get_sessi
     values = {
         **normalized.__dict__,
         "content_hash": hash_value,
+        "ingestion_method": "manual_capture",
         "last_seen_at": datetime.now(UTC),
         "final_score": scored.final_score,
         "score_breakdown": scored.score_breakdown,

@@ -1,18 +1,19 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { api } from './api/client';
 import { Layout } from './components/Layout';
+import { BrowserAssistant } from './pages/BrowserAssistant';
 import { Dashboard } from './pages/Dashboard';
 import { Jobs } from './pages/Jobs';
-import { ManualCapture } from './pages/ManualCapture';
 import { Settings } from './pages/Settings';
 import { Sources } from './pages/Sources';
-import type { Job, ManualCapturePayload, ScrapeRun, Source, Stats } from './types';
+import type { Job, ManualCapturePayload, SavedSearch, SavedSearchPayload, ScrapeRun, Source, Stats } from './types';
 
 export default function App() {
   const [active, setActive] = useState('dashboard');
   const [stats, setStats] = useState<Stats | null>(null);
   const [jobs, setJobs] = useState<Job[]>([]);
   const [sources, setSources] = useState<Source[]>([]);
+  const [savedSearches, setSavedSearches] = useState<SavedSearch[]>([]);
   const [runs, setRuns] = useState<ScrapeRun[]>([]);
   const [profile, setProfile] = useState<Record<string, unknown> | null>(null);
   const [selected, setSelected] = useState<Job | null>(null);
@@ -23,16 +24,18 @@ export default function App() {
   const [pollUntil, setPollUntil] = useState<number | null>(null);
 
   const load = useCallback(async () => {
-    const [statsData, jobsData, sourcesData, runsData, profileData] = await Promise.all([
+    const [statsData, jobsData, sourcesData, savedSearchData, runsData, profileData] = await Promise.all([
       api.stats(),
       api.jobs(),
       api.sources(),
+      api.savedSearches(),
       api.runs(),
       api.profile(),
     ]);
     setStats(statsData);
     setJobs(jobsData);
     setSources(sourcesData);
+    setSavedSearches(savedSearchData);
     setRuns(runsData);
     setProfile(profileData);
     setSelected((current) => current ?? jobsData[0] ?? null);
@@ -103,12 +106,27 @@ export default function App() {
     return job;
   }
 
+  async function openSavedSearch(id: number) {
+    const result = await api.openSavedSearch(id);
+    window.open(result.open_url, '_blank', 'noopener,noreferrer');
+  }
+
+  async function createSavedSearch(payload: SavedSearchPayload) {
+    await api.createSavedSearch(payload);
+    await load();
+  }
+
+  async function deleteSavedSearch(id: number) {
+    await api.deleteSavedSearch(id);
+    await load();
+  }
+
   return (
     <Layout active={active} setActive={setActive}>
       {active === 'dashboard' && <Dashboard stats={stats} runs={runs} onRunScrape={runScrape} scrapeMessage={scrapeMessage} isScraping={isScraping} />}
       {active === 'jobs' && <Jobs jobs={visibleJobs} selected={selected} setSelected={setSelected} onUpdate={updateJob} filters={filters} setFilters={setFilters} />}
       {active === 'sources' && <Sources sources={sources} onToggle={toggleSource} onRunSource={runSource} busySourceId={busySourceId} scrapeMessage={scrapeMessage} />}
-      {active === 'manual' && <ManualCapture onSubmit={manualCapture} />}
+      {active === 'browser' && <BrowserAssistant savedSearches={savedSearches} sources={sources} onOpenSavedSearch={openSavedSearch} onCreateSavedSearch={createSavedSearch} onDeleteSavedSearch={deleteSavedSearch} onManualCapture={manualCapture} />}
       {active === 'settings' && <Settings profile={profile} />}
     </Layout>
   );

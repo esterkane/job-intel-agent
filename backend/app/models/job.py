@@ -84,6 +84,7 @@ class Job(Base):
     last_seen_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
     status: Mapped[str] = mapped_column(String(40), default=JobStatus.new.value)
     raw_source: Mapped[dict] = mapped_column(JSON, default=dict)
+    ingestion_method: Mapped[str] = mapped_column(String(40), default="public_scrape", index=True)
     scrape_run_id: Mapped[int | None] = mapped_column(ForeignKey("scrape_runs.id"), nullable=True)
     content_hash: Mapped[str] = mapped_column(String(64), index=True)
     score_breakdown: Mapped[dict] = mapped_column(JSON, default=dict)
@@ -121,6 +122,25 @@ class ManualJobCapture(Base):
     description: Mapped[str | None] = mapped_column(Text, nullable=True)
     raw_payload_json: Mapped[dict] = mapped_column(JSON, default=dict)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+
+
+class SavedSearch(Base):
+    __tablename__ = "saved_searches"
+    __table_args__ = (
+        UniqueConstraint("platform", "query_name", "url", name="uq_saved_search_identity"),
+    )
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    platform: Mapped[str] = mapped_column(String(120), index=True)
+    query_name: Mapped[str] = mapped_column(String(255))
+    role_family: Mapped[str | None] = mapped_column(String(255), nullable=True)
+    url: Mapped[str] = mapped_column(Text)
+    region: Mapped[str | None] = mapped_column(String(120), nullable=True)
+    remote_filter: Mapped[str | None] = mapped_column(String(120), nullable=True)
+    enabled: Mapped[bool] = mapped_column(Boolean, default=True)
+    notes: Mapped[str | None] = mapped_column(Text, nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow, onupdate=utcnow)
 
 
 JobPlatformSource = Source

@@ -1,4 +1,4 @@
-from app.models.job import Job, JobPlatformSource, JobPosting, JobScore, ManualJobCapture, ScrapeRun, SearchQuery, Source
+from app.models.job import Job, JobPlatformSource, JobPosting, JobScore, ManualJobCapture, SavedSearch, ScrapeRun, SearchQuery, Source
 
 __all__ = [
     "Job",
@@ -6,6 +6,7 @@ __all__ = [
     "JobPosting",
     "JobScore",
     "ManualJobCapture",
+    "SavedSearch",
     "ScrapeRun",
     "SearchQuery",
     "Source",

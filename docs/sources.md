@@ -10,6 +10,9 @@ Source categories:
 - `rss_or_feed`: reserved for feed-first sources.
 - `jobspy_optional`: disabled by default and only for low-volume allowed use.
 - `manual_browser_only`: saved-search/manual capture workflow only.
+- `browser_allowed`: opt-in local browser session only after source-specific permission review. No source uses this by default.
 - `disabled_due_to_terms`: visible as a reference but never scraped.
 
 Manual-only sources include LinkedIn, Indeed, Glassdoor, FlexJobs, Wellfound, PowerToFly, and XING. Use saved searches, job alerts, or Manual Capture; the app does not automate extraction from logged-in or restricted pages.
+
+Saved searches are seeded in `config/saved_searches.yaml` and exposed in the Browser Assistant. Opening a saved search is a user-controlled browser action; the backend returns the URL and does not scrape the destination page.

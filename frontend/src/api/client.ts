@@ -1,4 +1,4 @@
-import type { Job, ManualCapturePayload, ScrapeRun, Source, Stats } from '../types';
+import type { Job, ManualCapturePayload, SavedSearch, SavedSearchPayload, ScrapeRun, Source, Stats } from '../types';
 
 const API_BASE = import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:8000';
 
@@ -20,6 +20,11 @@ export const api = {
   updateJob: (id: number, payload: Partial<Job>) => request<Job>(`/api/jobs/${id}`, { method: 'PATCH', body: JSON.stringify(payload) }),
   sources: () => request<Source[]>('/api/sources'),
   updateSource: (id: number, payload: Partial<Source>) => request<Source>(`/api/sources/${id}`, { method: 'PATCH', body: JSON.stringify(payload) }),
+  savedSearches: () => request<SavedSearch[]>('/api/saved-searches'),
+  createSavedSearch: (payload: SavedSearchPayload) => request<SavedSearch>('/api/saved-searches', { method: 'POST', body: JSON.stringify(payload) }),
+  updateSavedSearch: (id: number, payload: Partial<SavedSearchPayload>) => request<SavedSearch>(`/api/saved-searches/${id}`, { method: 'PATCH', body: JSON.stringify(payload) }),
+  deleteSavedSearch: (id: number) => request<{ deleted: boolean }>(`/api/saved-searches/${id}`, { method: 'DELETE' }),
+  openSavedSearch: (id: number) => request<{ open_url: string; platform: string; mode: string; message: string }>('/api/browser/open-saved-search', { method: 'POST', body: JSON.stringify({ saved_search_id: id }) }),
   runScrape: (fresh = false) => request<{ queued: number; fresh: boolean; deleted: number }>(`/api/scrape/run${fresh ? '?fresh=true' : ''}`, { method: 'POST' }),
   runSource: (id: number, fresh = false) => request<ScrapeRun>(`/api/scrape/run/${id}${fresh ? '?fresh=true' : ''}`, { method: 'POST' }),
   manualCapture: (payload: ManualCapturePayload) => request<Job>('/api/manual-capture', { method: 'POST', body: JSON.stringify(payload) }),

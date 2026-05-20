@@ -1,3 +1,5 @@
+import pytest
+
 from app.scrapers.base import NormalizedJob, ScraperAdapter
 
 
@@ -18,6 +20,7 @@ class MockAdapter(ScraperAdapter):
         ]
 
 
+@pytest.mark.asyncio
 async def test_mocked_scraper_adapter():
     source = type("Source", (), {"company_name": "Example", "source_type": "company"})()
     jobs = await MockAdapter().scrape(source)

@@ -14,6 +14,7 @@ export type Job = {
   first_seen_at: string;
   last_seen_at: string;
   status: string;
+  ingestion_method: string;
   final_score: number;
   role_family: string | null;
   score_breakdown: Record<string, number>;
@@ -70,4 +71,29 @@ export type ManualCapturePayload = {
   location?: string;
   description: string;
   notes?: string;
+};
+
+export type SavedSearch = {
+  id: number;
+  platform: string;
+  query_name: string;
+  role_family: string | null;
+  url: string;
+  region: string | null;
+  remote_filter: string | null;
+  enabled: boolean;
+  notes: string | null;
+  created_at: string;
+  updated_at: string;
+};
+
+export type SavedSearchPayload = {
+  platform: string;
+  query_name: string;
+  role_family?: string | null;
+  url: string;
+  region?: string | null;
+  remote_filter?: string | null;
+  enabled?: boolean;
+  notes?: string | null;
 };

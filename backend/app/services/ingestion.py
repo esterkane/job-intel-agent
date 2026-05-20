@@ -55,6 +55,16 @@ def adapter_for(source: Source) -> ScraperAdapter:
     return adapters.get(source.adapter_type, StaticHtmlAdapter())
 
 
+def ingestion_method_for(source: Source) -> str:
+    if source.source_type == "api_json":
+        return "api"
+    if source.source_type in {"public_static", "public_playwright"}:
+        return "public_scrape"
+    if source.source_type == "browser_allowed":
+        return "browser_assist"
+    return "public_scrape"
+
+
 def upsert_jobs(db: Session, source: Source, run: ScrapeRun, jobs: list[NormalizedJob]) -> tuple[int, int]:
     scorer = JobScorer(load_profile())
     new_count = 0
@@ -85,6 +95,7 @@ def upsert_jobs(db: Session, source: Source, run: ScrapeRun, jobs: list[Normaliz
             **item.__dict__,
             "scrape_run_id": run.id,
             "content_hash": hash_value,
+            "ingestion_method": ingestion_method_for(source),
             "last_seen_at": now,
             "final_score": final_score,
             "score_breakdown": breakdown,

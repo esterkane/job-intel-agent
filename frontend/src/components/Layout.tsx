@@ -10,7 +10,7 @@ const nav = [
   { id: 'dashboard', label: 'Dashboard', icon: BarChart3 },
   { id: 'jobs', label: 'Jobs', icon: BriefcaseBusiness },
   { id: 'sources', label: 'Sources', icon: Building2 },
-  { id: 'manual', label: 'Manual Capture', icon: ClipboardEdit },
+  { id: 'browser', label: 'Browser Assistant', icon: ClipboardEdit },
   { id: 'settings', label: 'Settings', icon: Settings },
 ];
 

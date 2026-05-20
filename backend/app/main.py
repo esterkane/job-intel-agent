@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.routes import router
-from app.config.loader import sync_sources
+from app.config.loader import sync_saved_searches, sync_sources
 from app.db.session import SessionLocal, init_db
 
 
@@ -23,6 +23,7 @@ def startup() -> None:
     db = SessionLocal()
     try:
         sync_sources(db)
+        sync_saved_searches(db)
     finally:
         db.close()
 

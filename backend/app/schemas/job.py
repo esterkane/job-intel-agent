@@ -50,6 +50,7 @@ class JobRead(BaseModel):
     first_seen_at: datetime
     last_seen_at: datetime
     status: str
+    ingestion_method: str
     final_score: float
     role_family: str | None
     score_breakdown: dict[str, Any]
@@ -72,6 +73,50 @@ class ManualCaptureCreate(BaseModel):
     location: str | None = None
     description: str
     notes: str | None = None
+
+
+class SavedSearchRead(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    id: int
+    platform: str
+    query_name: str
+    role_family: str | None
+    url: str
+    region: str | None
+    remote_filter: str | None
+    enabled: bool
+    notes: str | None
+    created_at: datetime
+    updated_at: datetime
+
+
+class SavedSearchCreate(BaseModel):
+    platform: str
+    query_name: str
+    role_family: str | None = None
+    url: str
+    region: str | None = None
+    remote_filter: str | None = None
+    enabled: bool = True
+    notes: str | None = None
+
+
+class SavedSearchUpdate(BaseModel):
+    platform: str | None = None
+    query_name: str | None = None
+    role_family: str | None = None
+    url: str | None = None
+    region: str | None = None
+    remote_filter: str | None = None
+    enabled: bool | None = None
+    notes: str | None = None
+
+
+class BrowserOpenSavedSearch(BaseModel):
+    saved_search_id: int | None = None
+    url: str | None = None
+    platform: str | None = None
 
 
 class ScrapeRunRead(BaseModel):
