@@ -24,20 +24,11 @@ from app.scoring.matcher import JobScorer
 from app.search.query_builder import build_search_strategy
 from app.scrapers.base import NormalizedJob
 from app.services.ingestion import content_hash, run_source_scrape
+from app.services.sources import list_platform_sources
 
 router = APIRouter()
 
 PRESERVED_JOB_STATUSES = {"saved", "applied"}
-PLATFORM_SOURCE_TYPES = {
-    "api_json",
-    "public_static",
-    "public_playwright",
-    "rss_or_feed",
-    "jobspy_optional",
-    "manual_browser_only",
-    "browser_allowed",
-    "disabled_due_to_terms",
-}
 
 
 def delete_existing_imported_jobs(db: Session, source: Source | None = None) -> int:
@@ -94,13 +85,7 @@ def update_job(job_id: int, payload: JobUpdate, db: Session = Depends(get_sessio
 
 @router.get("/sources", response_model=list[SourceRead])
 def list_sources(db: Session = Depends(get_session)):
-    sync_sources(db)
-    return (
-        db.query(Source)
-        .filter(Source.source_type.in_(PLATFORM_SOURCE_TYPES))
-        .order_by(desc(Source.enabled), Source.company_name)
-        .all()
-    )
+    return list_platform_sources(db)
 
 
 @router.get("/saved-searches", response_model=list[SavedSearchRead])

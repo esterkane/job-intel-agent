@@ -30,6 +30,15 @@ pytest
 - Tests run against `sqlite:///:memory:` (set in `tests/conftest.py`); no live
   Postgres/Qdrant/Ollama needed. SQLAlchemy creates tables at startup.
 
+Read-only MCP server (agent access; working dir `backend/`):
+```bash
+cd backend
+pip install -e ".[test]"
+python -m app.mcp.server     # stdio (default); MCP_TRANSPORT=http for streamable-HTTP
+```
+- Thin FastMCP adapters over existing functions: `search_jobs`, `get_job`,
+  `list_sources`. Read-only — no scrape/ingest/mutation exposed. See `docs/mcp.md`.
+
 Frontend build / dev (working dir `frontend/`):
 ```bash
 cd frontend
@@ -95,6 +104,18 @@ Repo-specific invariants (honor the project's stated ethics):
 7. **Strict location logic** lives in config (`target_location_logic` /
    `search_profile.yaml`); preserve the remote-DE / remote-EU-EMEA preference and the
    US/CA/UK/onsite/relocation penalties rather than hardcoding it elsewhere.
+8. **MCP layer is thin + read-only + structured.** The MCP server
+   (`backend/app/mcp/`) exposes `search_jobs` / `get_job` / `list_sources` only.
+   Tools are *thin* adapters — they reuse the existing query/filter shape,
+   services (`list_platform_sources`), schemas (`JobRead`/`SourceRead`), and the
+   persisted deterministic `JobScorer` output; **no business logic in the MCP
+   layer** and **no re-scoring** (the scorer stays deterministic). Tools are
+   **read-only**: never register a scrape/ingest/manual-capture/mutation tool.
+   Any future mutation must be gated behind `MCP_ALLOW_MUTATIONS` (default
+   **false**; no such env var or tool exists today). Failures return the
+   structured error payload (`isError`, `errorCategory` ∈
+   validation/transient/permission/business, `isRetryable`, `message`,
+   `details`) via `guard` — never a raw stack trace; SQLAlchemy/httpx → transient.
 
 ## Definition of done
 
@@ -109,3 +130,6 @@ Repo-specific invariants (honor the project's stated ethics):
 - Docs updated when behavior changes (`README.md`, `docs/`), including
   `docs/limitations.md` if a limitation is added or resolved.
 - No secrets added; new env vars documented in `.env.example`.
+- MCP tools stay thin (no business logic / no re-scoring) and read-only (no
+  scrape/ingest/mutation tool); failures return the structured `guard` error
+  payload. `docs/mcp.md` updated when the tool surface or error contract changes.

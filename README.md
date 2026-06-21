@@ -155,6 +155,28 @@ Using OpenAI API may create separate API billing costs.
 - Keep crawling polite and low-volume.
 - Do not auto-apply to jobs.
 
+## Agent Access (MCP)
+
+A **read-only** [Model Context Protocol](https://modelcontextprotocol.io) server
+exposes the job-intelligence core as agent tools, so an MCP client (Claude Code,
+Cursor, a LangGraph agent) can query scored jobs and configured sources without
+the HTTP API or a browser. The tools are **thin adapters** over the existing
+`backend/` functions and are strictly read-only — no scrape-run, ingest, or
+mutation is exposed.
+
+Tools: `search_jobs(query?, filters?)`, `get_job(job_id)`, `list_sources()`.
+
+Run it (working dir `backend/`):
+
+```bash
+cd backend
+pip install -e ".[test]"
+python -m app.mcp.server     # stdio transport (default); MCP_TRANSPORT=http for HTTP
+```
+
+See [`docs/mcp.md`](docs/mcp.md) for the tool reference, the structured-error
+contract, response shapes, and client registration.
+
 ## Development
 
 Backend tests:
